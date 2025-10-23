@@ -1,0 +1,91 @@
+@startuml
+title Система екологічного моніторингу — Діаграма класів
+
+skinparam classAttributeIconSize 0
+skinparam dpi 150
+skinparam shadowing false
+
+' --- Клас СервісДатчика ---
+class "СервісДатчика" as Service {
+  + перевірити() : bool
+  + заплануватиСервіс() : void
+}
+
+' --- Клас ДієваОсоба (базовий) ---
+class "ДієваОсоба" as Person {
+  - String name
+  - String role
+  --
+  + ДієваОсоба(String name, String role)
+  + getName() : String
+  + getRole() : String
+  + printInfo(ДієваОсоба особа) : void
+}
+
+' --- Похідні класи ---
+class "Еколог" as Ecologist {
+  - String zone
+  --
+  + Еколог(String name, String role, String zone)
+  + перевіритиПеревищення() : bool
+  + planService() : void
+}
+
+class "ОператорСтанції" as Operator {
+  - String stationId
+  --
+  + ОператорСтанції(String name, String role, String stationId)
+  + monitor() : void
+  + report() : void
+}
+
+class "ДиспетчерДСНС" as Dispatcher {
+  - String contactInfo
+  --
+  + ДиспетчерДСНС(String name, String role, String contactInfo)
+  + отриматиПовідомлення() : void
+}
+
+' --- Інші класи ---
+class "Станція" as Station {
+  - String location
+  --
+  + Станція(String location)
+}
+
+class "Датчик" as Sensor {
+  - String type
+  - float показник
+  --
+  + Датчик(String id, String type)
+  + передатиПоказники() : void
+}
+
+class "Подія" as Event {
+  - String type
+  --
+  + Подія(String type)
+  + отриматиТипПодії() : String
+}
+
+class "Вимір" as Measure {
+  - float value
+  --
+  + Вимір(float value)
+  + отриматиЗначення() : float
+}
+
+' --- Зв’язки ---
+Person <|-- Ecologist
+Person <|-- Operator
+Person <|-- Dispatcher
+
+Ecologist --> Service : використовує
+Operator --> Station
+Dispatcher --> Event : перевіряє
+Sensor --> Station : зберігає
+Sensor --> Event : створює
+Event --> Measure
+Event --> Dispatcher : передає
+
+@enduml

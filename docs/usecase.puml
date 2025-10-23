@@ -1,0 +1,27 @@
+@startuml
+title Система екологічного моніторингу
+left to right direction
+
+actor "Еколог" as Ecologist
+actor "Оператор станції" as Operator
+actor "Диспетчер ДСНС" as Dispatcher
+
+rectangle "Система моніторингу" {
+  usecase UC1 as "Перевірка перевищення\nграничних норм"
+  usecase UC2 as "Планування сервісу\nдатчика"
+  usecase UC3 as "Моніторинг показників\n(повітря/води)"
+  usecase UC4 as "Ескалація інциденту"
+}
+
+' Прямі зв’язки акторів
+Ecologist --> UC1
+Ecologist --> UC2
+Operator --> UC3
+Dispatcher --> UC4
+
+' Пунктирні зв’язки всередині системи
+UC3 ..> UC1 : повідомлення ДСНС
+UC3 ..> UC2 : містить
+UC3 ..> UC4 : містить
+
+@enduml

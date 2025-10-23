@@ -1,0 +1,24 @@
+@startuml
+title Сценарій: Моніторинг та реагування на перевищення норм
+
+actor "Оператор станції" as Operator
+participant "Станція" as Station
+participant "Датчик" as Sensor
+participant "Еколог" as Ecologist
+participant "Подія" as Event
+participant "Диспетчер ДСНС" as Dispatcher
+
+Operator -> Station : Моніторинг станції
+Station -> Sensor : Зчитати показники
+Sensor -> Ecologist : Передати дані (повітря/вода)
+
+Ecologist -> Ecologist : Перевірка перевищення норм
+
+alt (Перевищення норм)
+    Ecologist -> Event : Створити подію перевищення
+    Event -> Dispatcher : Надіслати повідомлення про інцидент
+end
+
+Ecologist -> Sensor : Планування сервісу датчика
+
+@enduml
