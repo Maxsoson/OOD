@@ -1,6 +1,7 @@
 /**
  * Клас Еколог
  */
+"package com.ecomonitoring;"
 public class Ecologist extends Person implements ServicePlanner {
     private String zone;
 

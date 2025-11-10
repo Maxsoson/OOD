@@ -1,6 +1,7 @@
 /**
  * Клас Диспетчер ДСНС
  */
+"package com.ecomonitoring;"
 public class Dispatcher extends Person {
     private String contactInfo;
 

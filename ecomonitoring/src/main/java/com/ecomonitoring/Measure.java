@@ -1,6 +1,7 @@
 /**
  * Клас для представлення вимірювання
  */
+"package com.ecomonitoring;"
 public class Measure {
     private float value;
 
