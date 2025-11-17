@@ -1,7 +1,9 @@
 /**
  * Головний клас для демонстрації роботи системи
  */
-"package com.ecomonitoring;"
+
+package com.ecomonitoring;
+
 public class Main {
     public static void main(String[] args) {
         // Створення учасників системи

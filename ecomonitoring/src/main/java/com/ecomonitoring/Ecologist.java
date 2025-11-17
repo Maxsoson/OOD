@@ -1,8 +1,7 @@
-/**
- * Клас Еколог
- */
-"package com.ecomonitoring;"
+package com.ecomonitoring;
+
 public class Ecologist extends Person implements ServicePlanner {
+
     private String zone;
 
     public Ecologist(String name, String zone) {
@@ -11,18 +10,21 @@ public class Ecologist extends Person implements ServicePlanner {
     }
 
     public boolean checkExcess(Measure measure) {
-        System.out.println("Еколог " + getName() + " перевіряє перевищення норм...");
-        return measure.getValue() > 100; // імітація перевірки
+        System.out.println("Еколог " + getName() +
+            " аналізує показники у зоні " + zone + "...");
+
+        return measure.getValue() > measure.getLimit();
     }
 
     @Override
     public void planService() {
-        System.out.println("Еколог " + getName() + " планує сервісне обслуговування...");
+        System.out.println("Еколог " + getName() +
+            " планує сервісне обслуговування у зоні " + zone + "...");
     }
 
     @Override
-    public boolean checkStatus() {
-        System.out.println("Еколог " + getName() + " перевіряє статус...");
-        return true;
+    public void checkStatus() {
+        System.out.println("Еколог " + getName() +
+            " перевіряє статус екологічної системи...");
     }
 }

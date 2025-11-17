@@ -1,17 +1,17 @@
-/**
- * Клас Диспетчер ДСНС
- */
-"package com.ecomonitoring;"
-public class Dispatcher extends Person {
-    private String contactInfo;
+package com.ecomonitoring;
 
-    public Dispatcher(String name, String contactInfo) {
+public class Dispatcher extends Person {
+
+    private String email;
+
+    public Dispatcher(String name, String email) {
         super(name, "Диспетчер ДСНС");
-        this.contactInfo = contactInfo;
+        this.email = email;
     }
 
     public void receiveAlert(Event event) {
-        System.out.println("Диспетчер " + getName() + " отримав сповіщення про подію типу: " + event.getType());
-        System.out.println("Значення: " + event.getMeasure().getValue());
+        System.out.println("Диспетчер " + getName() +
+            " отримав сповіщення про подію: " + event.getType() +
+            ". Контакт: " + email);
     }
 }

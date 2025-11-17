@@ -1,7 +1,7 @@
 /**
  * Клас для представлення події в системі
  */
-"package com.ecomonitoring;"
+package com.ecomonitoring;
 public class Event {
     private String type;
     private Measure measure;

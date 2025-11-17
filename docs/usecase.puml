@@ -2,7 +2,7 @@
 title Система екологічного моніторингу
 left to right direction
 
-actor "Еколог" as Ecologist
+actor "Еколог" as Ec0ologist
 actor "Оператор станції" as Operator
 actor "Диспетчер ДСНС" as Dispatcher
 
