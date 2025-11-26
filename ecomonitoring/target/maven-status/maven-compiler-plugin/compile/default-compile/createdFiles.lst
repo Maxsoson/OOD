@@ -1,4 +1,7 @@
+com/ecomonitoring/EventRepository.class
 com/ecomonitoring/Operator.class
+com/ecomonitoring/EcomonitoringModule.class
+com/ecomonitoring/EventService.class
 com/ecomonitoring/Event.class
 com/ecomonitoring/Ecologist.class
 com/ecomonitoring/ServicePlanner.class

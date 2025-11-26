@@ -1,6 +1,9 @@
 /workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/Dispatcher.java
 /workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/Ecologist.java
+/workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/EcomonitoringModule.java
 /workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/Event.java
+/workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/EventRepository.java
+/workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/EventService.java
 /workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/Main.java
 /workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/Measure.java
 /workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/Operator.java
