@@ -41,9 +41,11 @@ class "ОператорСтанції" as Operator {
 
 class "ДиспетчерДСНС" as Dispatcher {
   - String contactInfo
+  - EventService eventService
   --
   + ДиспетчерДСНС(String name, String role, String contactInfo)
   + отриматиПовідомлення() : void
+  + @Inject setEventService(eventService: EventService) : void
 }
 
 ' --- Інші класи ---
@@ -83,6 +85,7 @@ Person <|-- Dispatcher
 Ecologist --> Service : використовує
 Operator --> Station
 Dispatcher --> Event : перевіряє
+Dispatcher --> EventService : використовує через setter
 Sensor --> Station : зберігає
 Sensor --> Event : створює
 Event --> Measure
