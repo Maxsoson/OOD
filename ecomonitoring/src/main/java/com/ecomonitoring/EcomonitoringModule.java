@@ -11,6 +11,10 @@ import com.google.inject.Singleton;
 import com.google.inject.name.Named;
 import com.google.inject.name.Names;
 
+// ОТУТ головне — правильний пакет:
+import com.ecomonitoring.webserver.JavalinWebServer;
+import com.ecomonitoring.webserver.WebServer;
+
 public class EcomonitoringModule extends AbstractModule {
 
     @Override
@@ -32,13 +36,19 @@ public class EcomonitoringModule extends AbstractModule {
         }
     }
 
+    @Provides
+    @Singleton
+    WebServer provideWebServer() {
+        return new JavalinWebServer();
+    }
+
     private void createTableIfNotExists(Connection connection) {
         String createTableSQL =
                 "CREATE TABLE IF NOT EXISTS events (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "type TEXT NOT NULL, " +
-                "measure_value REAL NOT NULL, " +   // Measure.getValue()
-                "measure_limit REAL NOT NULL" +     // Measure.getLimit()
+                "measure_value REAL NOT NULL, " +
+                "measure_limit REAL NOT NULL" +
                 ")";
 
         try (Statement statement = connection.createStatement()) {

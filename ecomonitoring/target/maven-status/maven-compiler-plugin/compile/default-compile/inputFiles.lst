@@ -1,7 +1,9 @@
 /workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/Dispatcher.java
 /workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/Ecologist.java
 /workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/EcomonitoringModule.java
+/workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/EcomonitoringWebView.java
 /workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/Event.java
+/workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/EventController.java
 /workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/EventRepository.java
 /workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/EventService.java
 /workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/Main.java
@@ -9,3 +11,9 @@
 /workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/Operator.java
 /workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/Person.java
 /workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/ServicePlanner.java
+/workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/webserver/HttpContext.java
+/workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/webserver/JavalinHttpContext.java
+/workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/webserver/JavalinWebServer.java
+/workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/webserver/Request.java
+/workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/webserver/Response.java
+/workspaces/OOD/ecomonitoring/src/main/java/com/ecomonitoring/webserver/WebServer.java

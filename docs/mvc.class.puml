@@ -1,0 +1,122 @@
+classDiagram
+    direction LR
+
+    %% =====================
+    %% Model Layer
+    %% =====================
+
+    class Event {
+        - String type
+        - Measure measure
+        + getType(): String
+        + getMeasure(): Measure
+    }
+
+    class Measure {
+        - double value
+        - double limit
+        + getValue(): double
+        + getLimit(): double
+    }
+
+    class EventService {
+        - Connection connection
+        + saveEvent(Event)
+        + getAllEvents(): List~Event~
+    }
+
+    %% =====================
+    %% Controller Layer
+    %% =====================
+
+    class EventController {
+        - EventService eventService
+        + getAllEvents(): List~Event~
+    }
+
+    %% =====================
+    %% View Layer
+    %% =====================
+
+    class EcomonitoringWebView {
+        - EventController controller
+        + start(port: int)
+    }
+
+    class index_html {
+        <<static file>>
+    }
+
+    class script_js {
+        <<static file>>
+    }
+
+    %% =====================
+    %% WebServer Layer
+    %% =====================
+
+    class WebServer {
+        <<interface>>
+        + start()
+        + stop()
+    }
+
+    class JavalinWebServer {
+        + start()
+        + stop()
+    }
+
+    WebServer <|.. JavalinWebServer
+
+    %% =====================
+    %% Application Core
+    %% =====================
+
+    class EcomonitoringModule {
+        + configure()
+        + provideConnection()
+        + provideWebServer()
+    }
+
+    class Main {
+        + main(String[])
+        - runWebMode()
+    }
+
+    class Dispatcher {
+    }
+
+    class Ecologist {
+        - String name
+        - String zone
+        + checkExcess(Measure): boolean
+        + planService()
+    }
+
+    class Operator {
+        - String name
+        - String id
+        + monitor()
+        + report()
+    }
+
+
+    %% =====================
+    %% Relationships
+    %% =====================
+
+    Event --> Measure : uses
+    EventService --> Event : returns
+    EventService --> Measure : reads DB
+
+    EventController --> EventService : uses
+    EcomonitoringWebView --> EventController : calls
+    EcomonitoringWebView --> index_html
+    EcomonitoringWebView --> script_js
+
+    EcomonitoringModule --> JavalinWebServer : provides
+    EcomonitoringModule --> EventService : provides
+
+    Main --> EcomonitoringWebView : starts
+    Main --> Dispatcher
+    Dispatcher --> EventService : saveEvent()

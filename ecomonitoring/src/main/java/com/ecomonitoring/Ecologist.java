@@ -1,30 +1,36 @@
 package com.ecomonitoring;
 
-public class Ecologist extends Person implements ServicePlanner {
+public class Ecologist {
 
+    private String name;
     private String zone;
 
     public Ecologist(String name, String zone) {
-        super(name, "Еколог");
+        this.name = name;
         this.zone = zone;
     }
 
-    public boolean checkExcess(Measure measure) {
-        System.out.println("Еколог " + getName() +
-            " аналізує показники у зоні " + zone + "...");
+    public String getName() {
+        return name;
+    }
 
+    public String getZone() {
+        return zone;
+    }
+
+    // Перевірка перевищення норм
+    public boolean checkExcess(Measure measure) {
+        System.out.println("Еколог " + name + " перевіряє показник...");
         return measure.getValue() > measure.getLimit();
     }
 
-    @Override
+    // Планування сервісу (імітація)
     public void planService() {
-        System.out.println("Еколог " + getName() +
-            " планує сервісне обслуговування у зоні " + zone + "...");
+        System.out.println("Еколог " + name + " планує сервіс у зоні " + zone);
     }
 
-    @Override
-    public void checkStatus() {
-        System.out.println("Еколог " + getName() +
-            " перевіряє статус екологічної системи...");
+    // Додатковий метод (імітація)
+    public void report() {
+        System.out.println("Еколог " + name + " формує звіт...");
     }
 }
