@@ -1,24 +1,36 @@
-@startuml
-title Сценарій: Моніторинг та реагування на перевищення норм
+sequenceDiagram
+    actor Application
+    participant Operator
+    participant Ecologist
+    participant Dispatcher
+    participant Measure
+    participant Event
 
-actor "Оператор станції" as Operator
-participant "Станція" as Station
-participant "Датчик" as Sensor
-participant "Еколог" as Ecologist
-participant "Подія" as Event
-participant "Диспетчер ДСНС" as Dispatcher
+    Application->>Operator: new Operator("Іван Петренко", "ST001")
+    Application->>Ecologist: new Ecologist("Марія Коваленко", "Зона A")
+    Application->>Dispatcher: new Dispatcher("Петро Сидоренко", "emergency@dsns.gov.ua")
 
-Operator -> Station : Моніторинг станції
-Station -> Sensor : Зчитати показники
-Sensor -> Ecologist : Передати дані (повітря/вода)
+    Application->>Application: "=== Початок моніторингу ===" (вивід)
+    Application->>Operator: monitor()
+    Operator-->>Application: завершення monitor()
 
-Ecologist -> Ecologist : Перевірка перевищення норм
+    Application->>Measure: new Measure(150.0)
+    Application->>Ecologist: checkExcess(measure)
+    Ecologist-->>Application: true / false
 
-alt (Перевищення норм)
-    Ecologist -> Event : Створити подію перевищення
-    Event -> Dispatcher : Надіслати повідомлення про інцидент
-end
+    alt перевищення норм (true)
+        Application->>Application: "Виявлено перевищення норм!" (вивід)
+        Application->>Event: new Event("Перевищення ГДК", measure)
+        Application->>Dispatcher: receiveAlert(event)
+        Dispatcher-->>Application: завершення receiveAlert()
+    else немає перевищення
+        Application->>Application: без виклику Dispatcher.receiveAlert()
+    end
 
-Ecologist -> Sensor : Планування сервісу датчика
+    Application->>Ecologist: planService()
+    Ecologist-->>Application: завершення planService()
 
-@enduml
+    Application->>Operator: report()
+    Operator-->>Application: завершення report()
+
+    Application->>Application: "=== Кінець моніторингу ===" (вивід)

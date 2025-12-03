@@ -1,91 +1,67 @@
-@startuml
-title Система екологічного моніторингу — Діаграма класів
+classDiagram
+    class Person {
+      <<abstract>>
+      - String name
+      - String role
+      + Person(name, role)
+      + getName() String
+      + getRole() String
+      + printInfo() void
+    }
 
-skinparam classAttributeIconSize 0
-skinparam dpi 150
-skinparam shadowing false
+    class ServicePlanner {
+      <<interface>>
+      + planService() void
+      + checkStatus() boolean
+    }
 
-' --- Клас СервісДатчика ---
-class "СервісДатчика" as Service {
-  + перевірити() : bool
-  + заплануватиСервіс() : void
-}
+    class Operator {
+      - String stationId
+      + Operator(name, stationId)
+      + monitor() void
+      + report() void
+    }
 
-' --- Клас ДієваОсоба (базовий) ---
-class "ДієваОсоба" as Person {
-  - String name
-  - String role
-  --
-  + ДієваОсоба(String name, String role)
-  + getName() : String
-  + getRole() : String
-  + printInfo(ДієваОсоба особа) : void
-}
+    class Dispatcher {
+      - String contactInfo
+      + Dispatcher(name, contactInfo)
+      + receiveAlert(event : Event) void
+    }
 
-' --- Похідні класи ---
-class "Еколог" as Ecologist {
-  - String zone
-  --
-  + Еколог(String name, String role, String zone)
-  + перевіритиПеревищення() : bool
-  + planService() : void
-}
+    class Ecologist {
+      - String zone
+      + Ecologist(name, zone)
+      + checkExcess(measure : Measure) boolean
+      + planService() void
+      + checkStatus() boolean
+    }
 
-class "ОператорСтанції" as Operator {
-  - String stationId
-  --
-  + ОператорСтанції(String name, String role, String stationId)
-  + monitor() : void
-  + report() : void
-}
+    class Measure {
+      - float value
+      + Measure(value)
+      + getValue() float
+    }
 
-class "ДиспетчерДСНС" as Dispatcher {
-  - String contactInfo
-  --
-  + ДиспетчерДСНС(String name, String role, String contactInfo)
-  + отриматиПовідомлення() : void
-}
+    class Event {
+      - String type
+      - Measure measure
+      + Event(type, measure)
+      + getType() String
+      + getMeasure() Measure
+    }
 
-' --- Інші класи ---
-class "Станція" as Station {
-  - String location
-  --
-  + Станція(String location)
-}
+    %% Inheritance
+    Person <|-- Operator
+    Person <|-- Dispatcher
+    Person <|-- Ecologist
 
-class "Датчик" as Sensor {
-  - String type
-  - float показник
-  --
-  + Датчик(String id, String type)
-  + передатиПоказники() : void
-}
+    %% Interface implementation
+    ServicePlanner <|.. Ecologist
 
-class "Подія" as Event {
-  - String type
-  --
-  + Подія(String type)
-  + отриматиТипПодії() : String
-}
+    %% Relationships between domain classes
+    Event --> Measure : measure
 
-class "Вимір" as Measure {
-  - float value
-  --
-  + Вимір(float value)
-  + отриматиЗначення() : float
-}
-
-' --- Зв’язки ---
-Person <|-- Ecologist
-Person <|-- Operator
-Person <|-- Dispatcher
-
-Ecologist --> Service : використовує
-Operator --> Station
-Dispatcher --> Event : перевіряє
-Sensor --> Station : зберігає
-Sensor --> Event : створює
-Event --> Measure
-Event --> Dispatcher : передає
-
-@enduml
+    %% Logical dependencies
+    Ecologist ..> Measure : checkExcess()
+    Dispatcher ..> Event : receiveAlert()
+    Operator ..> Measure : indirect via Application

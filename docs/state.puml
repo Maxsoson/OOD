@@ -1,15 +1,30 @@
-@startuml
-title Діаграма станів класу «Датчик»
+stateDiagram-v2
+    [*] --> Idle
 
-[*] --> Ініціалізація
+    Idle --> Monitoring : start application\nApplication.main()
+    Monitoring : operator.monitor()
 
-Ініціалізація --> Нормальна_робота : датчик активовано
+    Monitoring --> Evaluating : new Measure(150.0)\necologist.checkExcess(measure)
 
-Нормальна_робота --> Перевищення : показник > норми
-Перевищення --> Нормальна_робота : показник у нормі
+    state Evaluating {
+        [*] --> ThresholdCheck
+        ThresholdCheck --> ThresholdExceeded : measure.value > 100
+        ThresholdCheck --> ThresholdOk : else
 
-Нормальна_робота --> Несправність : помилка датчика
-Несправність --> Сервіс : виклик технічного обслуговування
-Сервіс --> Нормальна_робота : відновлено
+        ThresholdExceeded --> [*]
+        ThresholdOk --> [*]
+    }
 
-@enduml
+    Evaluating --> Alerting : якщо ThresholdExceeded\nnew Event(...)\ndispatcher.receiveAlert(event)
+    Evaluating --> Planning : якщо ThresholdOk\n(без тривоги)
+
+    Alerting : dispatcher.receiveAlert(event)
+
+    Alerting --> Planning : завершення оповіщення
+    Planning : ecologist.planService()
+
+    Planning --> Reporting : operator.report()
+    Reporting : формування звіту
+
+    Reporting --> Completed : завершення сценарію
+    Completed --> [*]
