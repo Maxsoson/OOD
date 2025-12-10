@@ -1,0 +1,39 @@
+@startuml
+title Система екологічного моніторингу - Діаграма варіантів використання
+left to right direction
+
+actor "Еколог" as Ecologist
+actor "Оператор станції" as Operator
+actor "Диспетчер ДСНС" as Dispatcher
+actor "Application" as Application
+
+rectangle "Система екологічного моніторингу" {
+  usecase UC1 as "Проводити моніторинг\nстанції"
+  usecase UC2 as "Формувати звіт\nпо станції"
+  usecase UC3 as "Перевіряти перевищення\nграничних норм"
+  usecase UC4 as "Планувати сервісне\nобслуговування"
+  usecase UC5 as "Отримувати сповіщення\nпро подію"
+  usecase UC6 as "Створювати подію\nв системі"
+  usecase UC7 as "Створювати вимірювання\nдатчика"
+}
+
+' Взаємодія акторів та сценаріїв
+Application --> UC1
+Application --> UC6
+Application --> UC7
+
+Operator --> UC1
+Operator --> UC2
+
+Ecologist --> UC3
+Ecologist --> UC4
+
+Dispatcher --> UC5
+
+' Залежності між сценаріями
+UC7 --> UC3 : використовує
+UC3 --> UC6 : створює подію при перевищенні
+UC6 --> UC5 : ініціює сповіщення
+UC3 --> UC4 : запускає сервіс
+
+@enduml
